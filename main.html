@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Love Game</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body style="background:black;">
+
+<!-- TOMBOL PLAY MUSIK -->
+<button id="playBtn" style="
+  position:fixed; top:15px; left:50%; transform:translateX(-50%);
+  background:pink; border:none; padding:10px 18px; 
+  border-radius:10px; font-size:16px; cursor:pointer; z-index:999;">
+  Play Music 🎵
+</button>
+
+<!-- AUDIO -->
+<audio id="bgMusic" loop>
+  <source src="Give-Me-Your-Forever.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const bgMusic = document.getElementById("bgMusic");
+  const playBtn = document.getElementById("playBtn");
+
+  // Tombol play musik
+  playBtn.addEventListener("click", () => {
+      bgMusic.play();
+      playBtn.style.display = "none";
+      gameStarted = true;
+      spawnLove();
+  });
+
+  // Untuk memaksa play di mobile
+  document.addEventListener("touchstart", function () {
+      if (gameStarted && bgMusic.paused) bgMusic.play();
+  });
+</script>
+
+<div id="loveGame" style="color:white;text-align:center;margin-top:80px;font-size:20px;">
+  Klik icon ❤️ hingga mendapatkan hadiah
+</div>
+
+<div id="gift" class="gift" style="display:none;font-size:60px;cursor:pointer;text-align:center;margin-top:150px;">
+  🎁
+</div>
+
+<script>
+let clickCount = 0;
+const requiredClicks = 1;
+let gameStarted = false;
+
+function moveLove(love) {
+  setInterval(() => {
+      love.style.left = Math.random() * (window.innerWidth - 60) + "px";
+      love.style.top = Math.random() * (window.innerHeight - 60) + "px";
+  }, 600);
+}
+
+function spawnLove() {
+  if (!gameStarted || clickCount >= requiredClicks) return;
+
+  const love = document.createElement("div");
+  love.innerHTML = "❤️";
+  love.classList.add("love");
+  love.style.position = "absolute";
+  love.style.fontSize = "45px";
+  love.style.cursor = "pointer";
+
+  love.style.left = Math.random() * (window.innerWidth - 60) + "px";
+  love.style.top = Math.random() * (window.innerHeight - 60) + "px";
+
+  moveLove(love);
+
+  love.onclick = () => {
+      clickCount++;
+
+      setTimeout(() => love.remove(), 1500);
+
+      if (clickCount === requiredClicks) {
+          finishGame();
+      } else {
+          spawnLove();
+      }
+  };
+
+  document.body.appendChild(love);
+}
+
+function finishGame() {
+  document.body.style.background = "pink";
+  document.getElementById("gift").style.display = "block";
+}
+
+document.getElementById("gift").onclick = () => {
+  for(let i = 0; i < 50; i++){
+    const heart = document.createElement("div");
+    heart.innerHTML = "💖";
+    heart.classList.add("explode");
+    heart.style.position="absolute";
+    heart.style.left = Math.random()*window.innerWidth+"px";
+    heart.style.top = Math.random()*window.innerHeight+"px";
+    heart.style.fontSize = "25px";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),1200);
+  }
+  setTimeout(()=> window.location.href="note.html", 1200);
+};
+</script>
+
+</body>
+</html>

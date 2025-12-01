@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Surprise</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="glitch">
+  <div class="greenScan"></div>
+
+  <div class="redLine" style="top:20%"></div>
+  <div class="redLine" style="top:45%"></div>
+  <div class="redLine" style="top:70%"></div>
+</div>
+
+<div class="container">
+  <h2 id="time"></h2>
+  <input id="password" type="text" placeholder="Password" disabled>
+  <button onclick="checkPass()">Submit</button>
+  <p id="msg" style="color:red; font-size:14px;"></p>
+</div>
+
+<script>
+function updateTime() {
+    const now = new Date();
+    document.getElementById("time").innerText = now.toLocaleString();
+
+    const enableTime = new Date("2025-12-02T00:01:00");
+    if(now >= enableTime){
+        document.getElementById("password").disabled = false;
+    }
+}
+setInterval(updateTime, 1000);
+
+function checkPass(){
+    const val = document.getElementById("password").value;
+    if(val === "2-12-2002"){
+        window.location.href = "main.html";
+    } else {
+        document.getElementById("msg").innerText = "Password salah!";
+    }
+}
+</script>
+</body>
+</html>

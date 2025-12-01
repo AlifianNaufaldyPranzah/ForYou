@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Note</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<!-- AUDIO AUTOPLAY DENGAN TOMBOL PLAY / STOP -->
+<audio id="noteMusic" autoplay loop>
+  <source src="Happy-Birthday.mp3" type="audio/mpeg">
+</audio>
+
+<button id="musicBtn" class="music-toggle">Pause Music</button>
+
+<script>
+  const noteMusic = document.getElementById("noteMusic");
+  const musicBtn = document.getElementById("musicBtn");
+
+  // Autoplay agar tetap berjalan di mobile
+  document.addEventListener("touchstart", function () {
+    if (noteMusic.paused) {
+      noteMusic.play();
+    }
+  });
+
+  musicBtn.addEventListener("click", () => {
+    if (noteMusic.paused) {
+      noteMusic.play();
+      musicBtn.textContent = "Pause Music";
+    } else {
+      noteMusic.pause();
+      musicBtn.textContent = "Play Music";
+    }
+  });
+</script>
+
+<style>
+  .music-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 10px;
+    padding: 10px 20px;
+    font-size: 14px;
+    background: #ff80c8;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    z-index: 9999;
+    box-shadow: 0 0 10px rgba(255,255,255,0.6);
+  }
+</style>
+
+<body class="noteBg">
+
+<div class="paper">
+  <p id="noteText">
+    Happy birthday sayanggg<3, selamat bertambah umurnya dan semakin tua bocil kuuuu. Dihari mu ini aku berdoa semoga kedepannya jalanmu dipermudah, rezekinya dilancarkan, kesehatannya senantiasa powerfulll. Semoga kamu nda makin bandelll dan lebih dewasa dalam menyikapi segala hal sayangg. Ini hadiah kecil dari akuuu, hadiah lainnya menyusul ya sayangg. Tunggu aku disana beibsss (˶˃ ᵕ ˂˶)
+  </p>
+</div>
+
+<script>
+// floating heart decor
+for(let i=0; i<15; i++){
+   const f = document.createElement("div");
+   f.classList.add("floatHeart");
+   f.innerHTML = "❤️";
+   f.style.left = Math.random()*window.innerWidth+"px";
+   f.style.animationDelay = (Math.random()*4)+"s";
+   document.body.appendChild(f);
+}
+</script>
+
+</body>
+</html>
